@@ -1,81 +1,22 @@
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Player, function (sprite, otherSprite) {
-	
+statusbars.onZero(StatusBarKind.Health, function (status) {
+    game.gameOver(false)
 })
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
+    statusbar.value += 10
+    if (true) {
+        sprites.destroy(mySprite, effects.hearts, 500)
+    }
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
+    statusbar.value += -5
+})
+let statusbar: StatusBarSprite = null
+let mySprite: Sprite = null
 let PacMan = sprites.create(assets.image`pac man`, SpriteKind.Player)
-let fantasma1 = sprites.create(img`
-    . . . . 3 3 3 3 3 3 3 3 . . . . 
-    . . . 3 3 3 3 3 3 3 3 3 3 . . . 
-    . . 3 3 1 1 1 3 3 3 1 1 1 3 . . 
-    . 3 3 1 1 1 1 1 3 1 1 1 1 1 3 . 
-    . 3 3 1 1 8 8 1 3 1 1 8 8 1 3 . 
-    . 3 3 3 1 8 8 3 3 3 1 8 8 3 3 . 
-    . 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . 
-    . 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . 
-    . 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . 
-    . 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . 
-    . 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . 
-    . 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . 
-    . 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . 
-    . 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . 
-    . 3 3 3 . 3 3 3 . 3 3 3 . 3 3 . 
-    . . 3 . . . 3 . . . 3 . . . 3 . 
-    `, SpriteKind.Player)
-let fantasma2 = sprites.create(img`
-    . . . . 4 4 4 4 4 4 4 4 . . . . 
-    . . . 4 4 4 4 4 4 4 4 4 4 . . . 
-    . . 4 4 1 1 1 4 4 4 1 1 1 4 . . 
-    . 4 4 1 1 1 1 1 4 1 1 1 1 1 4 . 
-    . 4 4 1 1 8 8 1 4 1 1 8 8 1 4 . 
-    . 4 4 4 1 8 8 4 4 4 1 8 8 4 4 . 
-    . 4 4 4 4 4 4 4 4 4 4 4 4 4 4 . 
-    . 4 4 4 4 4 4 4 4 4 4 4 4 4 4 . 
-    . 4 4 4 4 4 4 4 4 4 4 4 4 4 4 . 
-    . 4 4 4 4 4 4 4 4 4 4 4 4 4 4 . 
-    . 4 4 4 4 4 4 4 4 4 4 4 4 4 4 . 
-    . 4 4 4 4 4 4 4 4 4 4 4 4 4 4 . 
-    . 4 4 4 4 4 4 4 4 4 4 4 4 4 4 . 
-    . 4 4 4 4 4 4 4 4 4 4 4 4 4 4 . 
-    . 4 4 4 . 4 4 4 . 4 4 4 . 4 4 . 
-    . . 4 . . . 4 . . . 4 . . . 4 . 
-    `, SpriteKind.Player)
-let fantasma3 = sprites.create(img`
-    . . . . 5 5 5 5 5 5 5 5 . . . . 
-    . . . 5 5 5 5 5 5 5 5 5 5 . . . 
-    . . 5 5 1 1 1 5 5 5 1 1 1 5 . . 
-    . 5 5 1 1 1 1 1 5 1 1 1 1 1 5 . 
-    . 5 5 1 1 8 8 1 5 1 1 8 8 1 5 . 
-    . 5 5 5 1 8 8 5 5 5 1 8 8 5 5 . 
-    . 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    . 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    . 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    . 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    . 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    . 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    . 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    . 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    . 5 5 5 . 5 5 5 . 5 5 5 . 5 5 . 
-    . . 5 . . . 5 . . . 5 . . . 5 . 
-    `, SpriteKind.Player)
-let fantasma4 = sprites.create(img`
-    . . . . 9 9 9 9 9 9 9 9 . . . . 
-    . . . 9 9 9 9 9 9 9 9 9 9 . . . 
-    . . 9 9 1 1 1 9 9 9 1 1 1 9 . . 
-    . 9 9 1 1 1 1 1 9 1 1 1 1 1 9 . 
-    . 9 9 1 1 8 8 1 9 1 1 8 8 1 9 . 
-    . 9 9 9 1 8 8 9 9 9 1 8 8 9 9 . 
-    . 9 9 9 9 9 9 9 9 9 9 9 9 9 9 . 
-    . 9 9 9 9 9 9 9 9 9 9 9 9 9 9 . 
-    . 9 9 9 9 9 9 9 9 9 9 9 9 9 9 . 
-    . 9 9 9 9 9 9 9 9 9 9 9 9 9 9 . 
-    . 9 9 9 9 9 9 9 9 9 9 9 9 9 9 . 
-    . 9 9 9 9 9 9 9 9 9 9 9 9 9 9 . 
-    . 9 9 9 9 9 9 9 9 9 9 9 9 9 9 . 
-    . 9 9 9 9 9 9 9 9 9 9 9 9 9 9 . 
-    . 9 9 9 . 9 9 9 . 9 9 9 . 9 9 . 
-    . . 9 . . . 9 . . . 9 . . . 9 . 
-    `, SpriteKind.Player)
-tiles.setCurrentTilemap(tilemap`level1`)
+scene.cameraFollowSprite(PacMan)
+PacMan.setPosition(25, 20)
 controller.moveSprite(PacMan, 100, 100)
+mySprite.setBounceOnWall(true)
 animation.runImageAnimation(
 PacMan,
 [img`
@@ -252,3 +193,155 @@ PacMan,
 300,
 true
 )
+statusbar = statusbars.create(20, 4, StatusBarKind.Health)
+statusbar.value = 100
+statusbar.setBarBorder(1, 15)
+statusbar.positionDirection(CollisionDirection.Top)
+statusbar.attachToSprite(PacMan, 5, 1)
+statusbar.setLabel("HP", 2)
+statusbar.attachToSprite(PacMan, 5, 1)
+tiles.setCurrentTilemap(tilemap`level1`)
+let fantasma1 = sprites.create(img`
+    . . . . 3 3 3 3 3 3 3 3 . . . . 
+    . . . 3 3 3 3 3 3 3 3 3 3 . . . 
+    . . 3 3 1 1 1 3 3 3 1 1 1 3 . . 
+    . 3 3 1 1 1 1 1 3 1 1 1 1 1 3 . 
+    . 3 3 1 1 8 8 1 3 1 1 8 8 1 3 . 
+    . 3 3 3 1 8 8 3 3 3 1 8 8 3 3 . 
+    . 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . 
+    . 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . 
+    . 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . 
+    . 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . 
+    . 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . 
+    . 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . 
+    . 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . 
+    . 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . 
+    . 3 3 3 . 3 3 3 . 3 3 3 . 3 3 . 
+    . . 3 . . . 3 . . . 3 . . . 3 . 
+    `, SpriteKind.Enemy)
+fantasma1.setPosition(randint(80, 200), randint(80, 200))
+fantasma1.setBounceOnWall(true)
+fantasma1.setVelocity(50, 50)
+let fantasma2 = sprites.create(img`
+    . . . . 4 4 4 4 4 4 4 4 . . . . 
+    . . . 4 4 4 4 4 4 4 4 4 4 . . . 
+    . . 4 4 1 1 1 4 4 4 1 1 1 4 . . 
+    . 4 4 1 1 1 1 1 4 1 1 1 1 1 4 . 
+    . 4 4 1 1 8 8 1 4 1 1 8 8 1 4 . 
+    . 4 4 4 1 8 8 4 4 4 1 8 8 4 4 . 
+    . 4 4 4 4 4 4 4 4 4 4 4 4 4 4 . 
+    . 4 4 4 4 4 4 4 4 4 4 4 4 4 4 . 
+    . 4 4 4 4 4 4 4 4 4 4 4 4 4 4 . 
+    . 4 4 4 4 4 4 4 4 4 4 4 4 4 4 . 
+    . 4 4 4 4 4 4 4 4 4 4 4 4 4 4 . 
+    . 4 4 4 4 4 4 4 4 4 4 4 4 4 4 . 
+    . 4 4 4 4 4 4 4 4 4 4 4 4 4 4 . 
+    . 4 4 4 4 4 4 4 4 4 4 4 4 4 4 . 
+    . 4 4 4 . 4 4 4 . 4 4 4 . 4 4 . 
+    . . 4 . . . 4 . . . 4 . . . 4 . 
+    `, SpriteKind.Enemy)
+fantasma2.setPosition(randint(80, 200), randint(80, 200))
+fantasma2.setBounceOnWall(true)
+fantasma2.setVelocity(50, 50)
+let fantasma3 = sprites.create(img`
+    . . . . 5 5 5 5 5 5 5 5 . . . . 
+    . . . 5 5 5 5 5 5 5 5 5 5 . . . 
+    . . 5 5 1 1 1 5 5 5 1 1 1 5 . . 
+    . 5 5 1 1 1 1 1 5 1 1 1 1 1 5 . 
+    . 5 5 1 1 8 8 1 5 1 1 8 8 1 5 . 
+    . 5 5 5 1 8 8 5 5 5 1 8 8 5 5 . 
+    . 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
+    . 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
+    . 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
+    . 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
+    . 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
+    . 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
+    . 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
+    . 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
+    . 5 5 5 . 5 5 5 . 5 5 5 . 5 5 . 
+    . . 5 . . . 5 . . . 5 . . . 5 . 
+    `, SpriteKind.Enemy)
+fantasma3.setPosition(randint(80, 200), randint(80, 200))
+fantasma3.setBounceOnWall(true)
+fantasma3.setVelocity(50, 50)
+let fantasma4 = sprites.create(img`
+    . . . . 9 9 9 9 9 9 9 9 . . . . 
+    . . . 9 9 9 9 9 9 9 9 9 9 . . . 
+    . . 9 9 1 1 1 9 9 9 1 1 1 9 . . 
+    . 9 9 1 1 1 1 1 9 1 1 1 1 1 9 . 
+    . 9 9 1 1 8 8 1 9 1 1 8 8 1 9 . 
+    . 9 9 9 1 8 8 9 9 9 1 8 8 9 9 . 
+    . 9 9 9 9 9 9 9 9 9 9 9 9 9 9 . 
+    . 9 9 9 9 9 9 9 9 9 9 9 9 9 9 . 
+    . 9 9 9 9 9 9 9 9 9 9 9 9 9 9 . 
+    . 9 9 9 9 9 9 9 9 9 9 9 9 9 9 . 
+    . 9 9 9 9 9 9 9 9 9 9 9 9 9 9 . 
+    . 9 9 9 9 9 9 9 9 9 9 9 9 9 9 . 
+    . 9 9 9 9 9 9 9 9 9 9 9 9 9 9 . 
+    . 9 9 9 9 9 9 9 9 9 9 9 9 9 9 . 
+    . 9 9 9 . 9 9 9 . 9 9 9 . 9 9 . 
+    . . 9 . . . 9 . . . 9 . . . 9 . 
+    `, SpriteKind.Enemy)
+fantasma4.setPosition(0, 0)
+fantasma4.setBounceOnWall(true)
+fantasma4.setVelocity(50, 50)
+let cherry = sprites.create(img`
+    . . . . . . . . . . . 6 6 6 6 6 
+    . . . . . . . . . 6 6 7 7 7 7 8 
+    . . . . . . 8 8 8 7 7 8 8 6 8 8 
+    . . e e e e c 6 6 8 8 . 8 7 8 . 
+    . e 2 5 4 2 e c 8 . . . 6 7 8 . 
+    e 2 4 2 2 2 2 2 c . . . 6 7 8 . 
+    e 2 2 2 2 2 2 2 c . . . 8 6 8 . 
+    e 2 e e 2 2 2 2 e e e e c 6 8 . 
+    c 2 e e 2 2 2 2 e 2 5 4 2 c 8 . 
+    . c 2 e e e 2 e 2 4 2 2 2 2 c . 
+    . . c 2 2 2 e e 2 2 2 2 2 2 2 e 
+    . . . e c c e c 2 2 2 2 2 2 2 e 
+    . . . . . . . c 2 e e 2 2 e 2 c 
+    . . . . . . . c e e e e e e 2 c 
+    . . . . . . . . c e 2 2 2 2 c . 
+    . . . . . . . . . c c c c c . . 
+    `, SpriteKind.Food)
+cherry.setPosition(90, 90)
+cherry.setBounceOnWall(true)
+let apple = sprites.create(img`
+    . . . . . . . e c 7 . . . . . . 
+    . . . . e e e c 7 7 e e . . . . 
+    . . c e e e e c 7 e 2 2 e e . . 
+    . c e e e e e c 6 e e 2 2 2 e . 
+    . c e e e 2 e c c 2 4 5 4 2 e . 
+    c e e e 2 2 2 2 2 2 4 5 5 2 2 e 
+    c e e 2 2 2 2 2 2 2 2 4 4 2 2 e 
+    c e e 2 2 2 2 2 2 2 2 2 2 2 2 e 
+    c e e 2 2 2 2 2 2 2 2 2 2 2 2 e 
+    c e e 2 2 2 2 2 2 2 2 2 2 2 2 e 
+    c e e 2 2 2 2 2 2 2 2 2 2 4 2 e 
+    . e e e 2 2 2 2 2 2 2 2 2 4 e . 
+    . 2 e e 2 2 2 2 2 2 2 2 4 2 e . 
+    . . 2 e e 2 2 2 2 2 4 4 2 e . . 
+    . . . 2 2 e e 4 4 4 2 e e . . . 
+    . . . . . 2 2 e e e e . . . . . 
+    `, SpriteKind.Food)
+apple.setPosition(170, 170)
+apple.setBounceOnWall(true)
+let strawberry = sprites.create(img`
+    . . . . . . . 6 . . . . . . . . 
+    . . . . . . 8 6 6 . . . 6 8 . . 
+    . . . e e e 8 8 6 6 . 6 7 8 . . 
+    . . e 2 2 2 2 e 8 6 6 7 6 . . . 
+    . e 2 2 4 4 2 7 7 7 7 7 8 6 . . 
+    . e 2 4 4 2 6 7 7 7 6 7 6 8 8 . 
+    e 2 4 5 2 2 6 7 7 6 2 7 7 6 . . 
+    e 2 4 4 2 2 6 7 6 2 2 6 7 7 6 . 
+    e 2 4 2 2 2 6 6 2 2 2 e 7 7 6 . 
+    e 2 4 2 2 4 2 2 2 4 2 2 e 7 6 . 
+    e 2 4 2 2 2 2 2 2 2 2 2 e c 6 . 
+    e 2 2 2 2 2 2 2 4 e 2 e e c . . 
+    e e 2 e 2 2 4 2 2 e e e c . . . 
+    e e e e 2 e 2 2 e e e c . . . . 
+    e e e 2 e e c e c c c . . . . . 
+    . c c c c c c c . . . . . . . . 
+    `, SpriteKind.Food)
+strawberry.setPosition(280, 280)
+strawberry.setBounceOnWall(true)

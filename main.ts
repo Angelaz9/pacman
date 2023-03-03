@@ -28,7 +28,31 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSpr
         sprites.destroy(burger, effects.hearts, 500)
         pontos += 1
     }
-    if (pontos == 6) {
+    if (PacMan.overlapsWith(cake)) {
+        sprites.destroy(cake, effects.hearts, 500)
+        pontos += 1
+    }
+    if (PacMan.overlapsWith(dougnut)) {
+        sprites.destroy(dougnut, effects.hearts, 500)
+        pontos += 1
+    }
+    if (PacMan.overlapsWith(drumstick)) {
+        sprites.destroy(drumstick, effects.hearts, 500)
+        pontos += 1
+    }
+    if (PacMan.overlapsWith(ham)) {
+        sprites.destroy(ham, effects.hearts, 500)
+        pontos += 1
+    }
+    if (PacMan.overlapsWith(lemon)) {
+        sprites.destroy(lemon, effects.hearts, 500)
+        pontos += 1
+    }
+    if (PacMan.overlapsWith(taco)) {
+        sprites.destroy(taco, effects.hearts, 500)
+        pontos += 1
+    }
+    if (pontos == 12) {
         game.gameOver(true)
         game.setGameOverEffect(true, effects.confetti)
     }
@@ -36,6 +60,12 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSpr
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     statusbar.value += -5
 })
+let taco: Sprite = null
+let ham: Sprite = null
+let drumstick: Sprite = null
+let dougnut: Sprite = null
+let lemon: Sprite = null
+let cake: Sprite = null
 let burger: Sprite = null
 let icecream: Sprite = null
 let pizza: Sprite = null
@@ -47,7 +77,7 @@ let pontos = 0
 let PacMan: Sprite = null
 PacMan = sprites.create(assets.image`pac man`, SpriteKind.Player)
 scene.cameraFollowSprite(PacMan)
-PacMan.setPosition(25, 20)
+PacMan.setPosition(randint(1, 250), randint(1, 250))
 controller.moveSprite(PacMan, 100, 100)
 PacMan.setBounceOnWall(true)
 animation.runImageAnimation(
@@ -61,150 +91,31 @@ PacMan,
     5 5 5 5 5 5 5 5 5 f f 5 5 5 5 . 
     5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
     5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    5 5 5 5 5 5 5 5 5 5 . 1 . 1 . . 
-    5 5 5 5 5 5 5 5 . 1 . . . . . . 
+    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
+    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
+    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
+    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
+    . 5 5 5 5 5 5 5 5 5 5 5 5 5 . . 
+    . 5 5 5 5 5 5 5 5 5 5 5 5 5 . . 
+    . . 5 5 5 5 5 5 5 5 5 5 5 . . . 
+    . . . . 5 5 5 5 5 5 5 . . . . . 
+    `,img`
+    . . . . . . . . . . . . . . . . 
+    . . . . 5 5 5 5 5 5 5 . . . . . 
+    . . 5 5 5 5 5 5 5 5 5 5 5 . . . 
+    . 5 5 5 5 5 5 5 5 5 5 5 5 5 . . 
+    . 5 5 5 5 5 5 5 5 f f 5 5 5 . . 
+    5 5 5 5 5 5 5 5 5 f f 5 5 5 5 . 
+    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
+    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
+    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
+    5 5 5 5 5 5 5 . . . . . . . . . 
+    5 5 5 5 5 5 5 . . . . . . . . . 
     5 5 5 5 5 5 5 5 . . . . . . . . 
-    5 5 5 5 5 5 5 5 1 . . . . . . . 
     . 5 5 5 5 5 5 5 . . . . . . . . 
-    . 5 5 5 5 5 5 5 5 1 . . . . . . 
-    . . 5 5 5 5 5 5 5 5 1 . . . . . 
+    . 5 5 5 5 5 5 5 5 . . . . . . . 
+    . . 5 5 5 5 5 5 5 5 . . . . . . 
     . . . . 5 5 5 5 5 5 5 . . . . . 
-    `,img`
-    . . . . . . . . . . . . . . . . 
-    . . . . 5 5 5 5 5 5 5 . . . . . 
-    . . 5 5 5 5 5 5 5 5 5 5 5 . . . 
-    . 5 5 5 5 5 5 5 5 5 5 5 5 5 . . 
-    . 5 5 5 5 5 5 5 5 f f 5 5 5 . . 
-    5 5 5 5 5 5 5 5 5 f f 5 5 5 5 . 
-    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    . 5 5 5 5 5 5 5 5 5 5 5 5 5 . . 
-    . 5 5 5 5 5 5 5 5 5 5 5 5 5 . . 
-    . . 5 5 5 5 5 5 5 5 5 5 5 . . . 
-    `,img`
-    . . . . . . . . . . . . . . . . 
-    . . . . 5 5 5 5 5 5 5 . . . . . 
-    . . 5 5 5 5 5 5 5 5 5 5 5 . . . 
-    . 5 5 5 5 5 5 5 5 5 5 5 5 5 . . 
-    . 5 5 5 5 5 5 5 5 f f 5 5 5 . . 
-    5 5 5 5 5 5 5 5 5 f f 5 5 5 5 . 
-    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    5 5 5 5 5 5 5 5 5 5 . 1 . 1 . . 
-    5 5 5 5 5 5 5 5 . 1 . . . . . . 
-    5 5 5 5 5 5 5 5 . . . . . . . . 
-    5 5 5 5 5 5 5 5 1 . . . . . . . 
-    . 5 5 5 5 5 5 5 . . . . . . . . 
-    . 5 5 5 5 5 5 5 5 1 . . . . . . 
-    . . 5 5 5 5 5 5 5 5 1 . . . . . 
-    . . . . 5 5 5 5 5 5 5 . . . . . 
-    `,img`
-    . . . . . . . . . . . . . . . . 
-    . . . . 5 5 5 5 5 5 5 . . . . . 
-    . . 5 5 5 5 5 5 5 5 5 5 5 . . . 
-    . 5 5 5 5 5 5 5 5 5 5 5 5 5 . . 
-    . 5 5 5 5 5 5 5 5 f f 5 5 5 . . 
-    5 5 5 5 5 5 5 5 5 f f 5 5 5 5 . 
-    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    . 5 5 5 5 5 5 5 5 5 5 5 5 5 . . 
-    . 5 5 5 5 5 5 5 5 5 5 5 5 5 . . 
-    . . 5 5 5 5 5 5 5 5 5 5 5 . . . 
-    `,img`
-    . . . . . . . . . . . . . . . . 
-    . . . . 5 5 5 5 5 5 5 . . . . . 
-    . . 5 5 5 5 5 5 5 5 5 5 5 . . . 
-    . 5 5 5 5 5 5 5 5 5 5 5 5 5 . . 
-    . 5 5 5 5 5 5 5 5 f f 5 5 5 . . 
-    5 5 5 5 5 5 5 5 5 f f 5 5 5 5 . 
-    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    5 5 5 5 5 5 5 5 5 5 . 1 . 1 . . 
-    5 5 5 5 5 5 5 5 . 1 . . . . . . 
-    5 5 5 5 5 5 5 5 . . . . . . . . 
-    5 5 5 5 5 5 5 5 1 . . . . . . . 
-    . 5 5 5 5 5 5 5 . . . . . . . . 
-    . 5 5 5 5 5 5 5 5 1 . . . . . . 
-    . . 5 5 5 5 5 5 5 5 1 . . . . . 
-    . . . . 5 5 5 5 5 5 5 . . . . . 
-    `,img`
-    . . . . . . . . . . . . . . . . 
-    . . . . 5 5 5 5 5 5 5 . . . . . 
-    . . 5 5 5 5 5 5 5 5 5 5 5 . . . 
-    . 5 5 5 5 5 5 5 5 5 5 5 5 5 . . 
-    . 5 5 5 5 5 5 5 5 f f 5 5 5 . . 
-    5 5 5 5 5 5 5 5 5 f f 5 5 5 5 . 
-    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    . 5 5 5 5 5 5 5 5 5 5 5 5 5 . . 
-    . 5 5 5 5 5 5 5 5 5 5 5 5 5 . . 
-    . . 5 5 5 5 5 5 5 5 5 5 5 . . . 
-    `,img`
-    . . . . . . . . . . . . . . . . 
-    . . . . 5 5 5 5 5 5 5 . . . . . 
-    . . 5 5 5 5 5 5 5 5 5 5 5 . . . 
-    . 5 5 5 5 5 5 5 5 5 5 5 5 5 . . 
-    . 5 5 5 5 5 5 5 5 f f 5 5 5 . . 
-    5 5 5 5 5 5 5 5 5 f f 5 5 5 5 . 
-    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    5 5 5 5 5 5 5 5 5 5 . 1 . 1 . . 
-    5 5 5 5 5 5 5 5 . 1 . . . . . . 
-    5 5 5 5 5 5 5 5 . . . . . . . . 
-    5 5 5 5 5 5 5 5 1 . . . . . . . 
-    . 5 5 5 5 5 5 5 . . . . . . . . 
-    . 5 5 5 5 5 5 5 5 1 . . . . . . 
-    . . 5 5 5 5 5 5 5 5 1 . . . . . 
-    . . . . 5 5 5 5 5 5 5 . . . . . 
-    `,img`
-    . . . . . . . . . . . . . . . . 
-    . . . . 5 5 5 5 5 5 5 . . . . . 
-    . . 5 5 5 5 5 5 5 5 5 5 5 . . . 
-    . 5 5 5 5 5 5 5 5 5 5 5 5 5 . . 
-    . 5 5 5 5 5 5 5 5 f f 5 5 5 . . 
-    5 5 5 5 5 5 5 5 5 f f 5 5 5 5 . 
-    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    5 5 5 5 5 5 5 5 5 5 . 1 . 1 . . 
-    5 5 5 5 5 5 5 5 . 1 . . . . . . 
-    5 5 5 5 5 5 5 5 . . . . . . . . 
-    5 5 5 5 5 5 5 5 1 . . . . . . . 
-    . 5 5 5 5 5 5 5 . . . . . . . . 
-    . 5 5 5 5 5 5 5 5 1 . . . . . . 
-    . . 5 5 5 5 5 5 5 5 1 . . . . . 
-    . . . . 5 5 5 5 5 5 5 . . . . . 
-    `,img`
-    . . . . . . . . . . . . . . . . 
-    . . . . 5 5 5 5 5 5 5 . . . . . 
-    . . 5 5 5 5 5 5 5 5 5 5 5 . . . 
-    . 5 5 5 5 5 5 5 5 5 5 5 5 5 . . 
-    . 5 5 5 5 5 5 5 5 f f 5 5 5 . . 
-    5 5 5 5 5 5 5 5 5 f f 5 5 5 5 . 
-    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-    . 5 5 5 5 5 5 5 5 5 5 5 5 5 . . 
-    . 5 5 5 5 5 5 5 5 5 5 5 5 5 . . 
-    . . 5 5 5 5 5 5 5 5 5 5 5 . . . 
     `,img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
@@ -253,7 +164,7 @@ let fantasma1 = sprites.create(img`
     . 3 3 3 . 3 3 3 . 3 3 3 . 3 3 . 
     . . 3 . . . 3 . . . 3 . . . 3 . 
     `, SpriteKind.Enemy)
-fantasma1.setPosition(randint(80, 200), randint(80, 200))
+fantasma1.setPosition(randint(1, 250), randint(1, 250))
 fantasma1.setBounceOnWall(true)
 fantasma1.setVelocity(50, 50)
 let fantasma2 = sprites.create(img`
@@ -274,7 +185,7 @@ let fantasma2 = sprites.create(img`
     . 4 4 4 . 4 4 4 . 4 4 4 . 4 4 . 
     . . 4 . . . 4 . . . 4 . . . 4 . 
     `, SpriteKind.Enemy)
-fantasma2.setPosition(randint(80, 200), randint(80, 200))
+fantasma2.setPosition(randint(1, 250), randint(1, 250))
 fantasma2.setBounceOnWall(true)
 fantasma2.setVelocity(50, 50)
 let fantasma3 = sprites.create(img`
@@ -295,7 +206,7 @@ let fantasma3 = sprites.create(img`
     . 5 5 5 . 5 5 5 . 5 5 5 . 5 5 . 
     . . 5 . . . 5 . . . 5 . . . 5 . 
     `, SpriteKind.Enemy)
-fantasma3.setPosition(randint(80, 200), randint(80, 200))
+fantasma3.setPosition(randint(1, 250), randint(1, 250))
 fantasma3.setBounceOnWall(true)
 fantasma3.setVelocity(50, 50)
 let fantasma4 = sprites.create(img`
@@ -316,7 +227,7 @@ let fantasma4 = sprites.create(img`
     . 9 9 9 . 9 9 9 . 9 9 9 . 9 9 . 
     . . 9 . . . 9 . . . 9 . . . 9 . 
     `, SpriteKind.Enemy)
-fantasma4.setPosition(randint(80, 200), randint(80, 200))
+fantasma4.setPosition(randint(1, 250), randint(1, 250))
 fantasma4.setBounceOnWall(true)
 fantasma4.setVelocity(50, 50)
 cherry = sprites.create(img`
@@ -337,7 +248,7 @@ cherry = sprites.create(img`
     . . . . . . . . c e 2 2 2 2 c . 
     . . . . . . . . . c c c c c . . 
     `, SpriteKind.Food)
-cherry.setPosition(randint(80, 200), randint(80, 200))
+cherry.setPosition(randint(1, 250), randint(1, 250))
 cherry.setBounceOnWall(true)
 apple = sprites.create(img`
     . . . . . . . e c 7 . . . . . . 
@@ -357,7 +268,7 @@ apple = sprites.create(img`
     . . . 2 2 e e 4 4 4 2 e e . . . 
     . . . . . 2 2 e e e e . . . . . 
     `, SpriteKind.Food)
-apple.setPosition(randint(80, 200), randint(80, 200))
+apple.setPosition(randint(1, 250), randint(1, 250))
 apple.setBounceOnWall(true)
 strawberry = sprites.create(img`
     . . . . . . . 6 . . . . . . . . 
@@ -377,7 +288,7 @@ strawberry = sprites.create(img`
     e e e 2 e e c e c c c . . . . . 
     . c c c c c c c . . . . . . . . 
     `, SpriteKind.Food)
-strawberry.setPosition(randint(80, 200), randint(80, 200))
+strawberry.setPosition(randint(1, 250), randint(1, 250))
 strawberry.setBounceOnWall(true)
 pizza = sprites.create(img`
     . . . . . . b b b b . . . . . . 
@@ -397,43 +308,27 @@ pizza = sprites.create(img`
     4 d d d 4 4 4 . . . . . . . . . 
     4 4 4 4 . . . . . . . . . . . . 
     `, SpriteKind.Food)
-pizza.setPosition(randint(80, 200), randint(80, 200))
+pizza.setPosition(randint(1, 250), randint(1, 250))
 pizza.setBounceOnWall(true)
 icecream = sprites.create(img`
-    ............3333bb..bb33333.....
-    ........3bb31111d3b311d111d33...
-    .......3bdd11111dbd11d11111113..
-    .......bdddd1111bd11d111dd11113.
-    ......3d111dd111b11d111dd33d11d3
-    ......3d11111dd1d11d111d11d33113
-    ....bb3d111111dd13dd111d1dd3b31b
-    ...b3d3dd111111dd13dd11d1dddbbdb
-    ...3ddd31d111111dd133dddddddb.b.
-    ..311111d1ddd1111dd11dddddd33...
-    ..3111111d111dd111dd1111dd3313..
-    ..bddd1111ddd11dd111d111111113..
-    ..311ddd111dddd11dd11ddd1111ddb.
-    ..31111dd111dddd11dd111dddddddb.
-    ...bd1111d1113ddd11dd1111111d3b.
-    ...4dd1111d1113ddd11ddd111d333b.
-    ..4dbdddd11d11133ddddddddddddb..
-    .4ddbddddd11d111d33ddddddddd3b..
-    .4dddb11ddd11dd111d333dddd3bb...
-    .4dd55b111d11dd11111d3333bbb....
-    .445555b111d11dddd111111ddb.....
-    .4455555bd1d311ddddddddddd3.....
-    .45455555bb1d3111ddddddd113.....
-    .4554555555b333d1111111113......
-    455554555555bbb33d11111d33......
-    4d555545555555dbbb3d11d33.......
-    4dd5555455555ddddd43333.........
-    45dd555544ddddddd4..............
-    .45dd5555d44dddd4...............
-    ..45dd55dddd4444................
-    ...45dd55444....................
-    ....44444.......................
+    . . . . . 3 3 b 3 3 d d 3 3 . . 
+    . . . . 3 1 1 d 3 d 1 1 1 1 3 . 
+    . . . 3 d 1 1 1 d 1 1 1 d 3 1 3 
+    . . 3 d d 1 1 1 d d 1 1 1 3 3 3 
+    . 3 1 1 d 1 1 1 1 d d 1 1 b . . 
+    . 3 1 1 1 d 1 1 1 1 1 d 1 1 3 . 
+    . b d 1 1 1 d 1 1 1 1 1 1 1 3 . 
+    . 4 b 1 1 1 1 d d 1 1 1 1 d 3 . 
+    . 4 4 d 1 1 1 1 1 1 d d d b b . 
+    . 4 d b d 1 1 1 1 1 1 1 1 3 . . 
+    4 d d 5 b d 1 1 1 1 1 1 1 3 . . 
+    4 5 d 5 5 b b d 1 1 1 1 d 3 . . 
+    4 5 5 d 5 5 d b b b d d 3 . . . 
+    4 5 5 5 d d d d 4 4 b 3 . . . . 
+    . 4 5 5 5 4 4 4 . . . . . . . . 
+    . . 4 4 4 . . . . . . . . . . . 
     `, SpriteKind.Food)
-icecream.setPosition(randint(80, 200), randint(80, 200))
+icecream.setPosition(randint(1, 250), randint(1, 250))
 icecream.setBounceOnWall(true)
 burger = sprites.create(img`
     . . . . c c c b b b b b . . . . 
@@ -453,5 +348,141 @@ burger = sprites.create(img`
     . e e b b 4 4 4 4 4 4 4 4 e e . 
     . . . c c c c c e e e e e . . . 
     `, SpriteKind.Food)
-burger.setPosition(randint(80, 200), randint(80, 200))
+burger.setPosition(randint(1, 250), randint(1, 250))
+burger.setBounceOnWall(true)
+cake = sprites.create(img`
+    ......................bbb.......
+    ....................bb333b......
+    .................bbb333d33b.....
+    ................bb333333d3a.....
+    ..............bb33332eeeedba....
+    ............bbb333323eee2e3a....
+    ..........bbd333333e22222ed3a...
+    .......bbbdd3333333e22222edda...
+    ......bb3d333333333be222eb3d3a..
+    ...bbb3dd33333333333beeeb33d3a..
+    ..b3ddd33333333333333333333dda..
+    bbddd3333333333333333333333dd3a.
+    b33dddddd3333333333333333333d3a.
+    bb3333333ddddd33333333333333dda.
+    bbbbbbb333dd33dddddddddd3333ddba
+    b55553bbbbbb3333dd33333ddd33dd3a
+    b555555555553bbbbbbbb33333dddd3a
+    bd555555555555555dddbaaaaab3d3ba
+    bb55555555555555555dddddddbb33ba
+    b3bb35555555555d5555d55dddddbbba
+    b33333bbb355dd55555d555ddddddbba
+    b5555d333333bbb35dddddd55ddddbba
+    b5d555dd5553333bbbbb3ddddddddb3a
+    b5d555555555555dd3333bbbbbb3db3a
+    bd5d555555d55555dd555ddbbbbbbb3a
+    bbb55dd555555555555555ddddddbb3a
+    ...bbbbdd555ddd5555ddddddddddb3a
+    .......bbbb555555d5ddd5ddddddb3a
+    ...........bbbb55555555555dd533a
+    ...............bbbbddd5d55d5b3ba
+    ...................bbbbddddb3ba.
+    .......................bbbaaaa..
+    `, SpriteKind.Food)
+pizza.setPosition(randint(1, 250), randint(1, 250))
+burger.setBounceOnWall(true)
+lemon = sprites.create(img`
+    4 4 4 . . 4 4 4 4 4 . . . . . . 
+    4 5 5 4 4 5 5 5 5 5 4 4 . . . . 
+    b 4 5 5 1 5 1 1 1 5 5 5 4 . . . 
+    . b 5 5 5 5 1 1 5 5 1 1 5 4 . . 
+    . b d 5 5 5 5 5 5 5 5 1 1 5 4 . 
+    b 4 5 5 5 5 5 5 5 5 5 5 1 5 4 . 
+    c d 5 5 5 5 5 5 5 5 5 5 5 5 5 4 
+    c d 4 5 5 5 5 5 5 5 5 5 5 1 5 4 
+    c 4 5 5 5 d 5 5 5 5 5 5 5 5 5 4 
+    c 4 d 5 4 5 d 5 5 5 5 5 5 5 5 4 
+    . c 4 5 5 5 5 d d d 5 5 5 5 5 b 
+    . c 4 d 5 4 5 d 4 4 d 5 5 5 4 c 
+    . . c 4 4 d 4 4 4 4 4 d d 5 d c 
+    . . . c 4 4 4 4 4 4 4 4 5 5 5 4 
+    . . . . c c b 4 4 4 b b 4 5 4 4 
+    . . . . . . c c c c c c b b 4 . 
+    `, SpriteKind.Food)
+pizza.setPosition(randint(1, 250), randint(1, 250))
+burger.setBounceOnWall(true)
+dougnut = sprites.create(img`
+    . . . . . . b b b b a a . . . . 
+    . . . . b b d d d 3 3 3 a a . . 
+    . . . b d d d 3 3 3 3 3 3 a a . 
+    . . b d d 3 3 3 3 3 3 3 3 3 a . 
+    . b 3 d 3 3 3 3 3 b 3 3 3 3 a b 
+    . b 3 3 3 3 3 a a 3 3 3 3 3 a b 
+    b 3 3 3 3 3 a a 3 3 3 3 d a 4 b 
+    b 3 3 3 3 b a 3 3 3 3 3 d a 4 b 
+    b 3 3 3 3 3 3 3 3 3 3 d a 4 4 e 
+    a 3 3 3 3 3 3 3 3 3 d a 4 4 4 e 
+    a 3 3 3 3 3 3 3 d d a 4 4 4 e . 
+    a a 3 3 3 d d d a a 4 4 4 e e . 
+    . e a a a a a a 4 4 4 4 e e . . 
+    . . e e b b 4 4 4 4 b e e . . . 
+    . . . e e e e e e e e . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `, SpriteKind.Food)
+pizza.setPosition(randint(1, 250), randint(1, 250))
+burger.setBounceOnWall(true)
+drumstick = sprites.create(img`
+    . . 2 2 b b b b b . . . . . . . 
+    . 2 b 4 4 4 4 4 4 b . . . . . . 
+    2 2 4 4 4 4 d d 4 4 b . . . . . 
+    2 b 4 4 4 4 4 4 d 4 b . . . . . 
+    2 b 4 4 4 4 4 4 4 d 4 b . . . . 
+    2 b 4 4 4 4 4 4 4 4 4 b . . . . 
+    2 b 4 4 4 4 4 4 4 4 4 e . . . . 
+    2 2 b 4 4 4 4 4 4 4 b e . . . . 
+    . 2 b b b 4 4 4 b b b e . . . . 
+    . . e b b b b b b b e e . . . . 
+    . . . e e b 4 4 b e e e b . . . 
+    . . . . . e e e e e e b d b b . 
+    . . . . . . . . . . . b 1 1 1 b 
+    . . . . . . . . . . . c 1 d d b 
+    . . . . . . . . . . . c 1 b c . 
+    . . . . . . . . . . . . c c . . 
+    `, SpriteKind.Food)
+pizza.setPosition(randint(1, 250), randint(1, 250))
+burger.setBounceOnWall(true)
+ham = sprites.create(img`
+    . . . . . . 2 2 2 2 . . . . . . 
+    . . . . 2 2 3 3 3 3 2 e . . . . 
+    . . . 2 3 d 1 1 d d 3 2 e . . . 
+    . . 2 3 1 d 3 3 3 d d 3 e . . . 
+    . 2 3 1 3 3 3 3 3 d 1 3 b e . . 
+    . 2 1 d 3 3 3 3 d 3 3 1 3 b b . 
+    2 3 1 d 3 3 1 1 3 3 3 1 3 4 b b 
+    2 d 3 3 d 1 3 1 3 3 3 1 3 4 4 b 
+    2 d 3 3 3 1 3 1 3 3 3 1 b 4 4 e 
+    2 d 3 3 3 1 1 3 3 3 3 1 b 4 4 e 
+    e d 3 3 3 3 d 3 3 3 d d b 4 4 e 
+    e d d 3 3 3 d 3 3 3 1 3 b 4 b e 
+    e 3 d 3 3 1 d d 3 d 1 b b e e . 
+    . e 3 1 1 d d 1 1 1 b b e e e . 
+    . . e 3 3 3 3 3 3 b e e e e . . 
+    . . . e e e e e e e e e e . . . 
+    `, SpriteKind.Food)
+pizza.setPosition(randint(1, 250), randint(1, 250))
+burger.setBounceOnWall(true)
+taco = sprites.create(img`
+    . . . . . . . e e e e . . . . . 
+    . . . . . e e 4 5 5 5 e e . . . 
+    . . . . e 4 5 6 2 2 7 6 6 e . . 
+    . . . e 5 6 6 7 2 2 6 4 4 4 e . 
+    . . e 5 2 2 7 6 6 4 5 5 5 5 4 . 
+    . e 5 6 2 2 8 8 5 5 5 5 5 4 5 4 
+    . e 5 6 7 7 8 5 4 5 4 5 5 5 5 4 
+    e 4 5 8 6 6 5 5 5 5 5 5 4 5 5 4 
+    e 5 c e 8 5 5 5 4 5 5 5 5 5 5 4 
+    e 5 c c e 5 4 5 5 5 4 5 5 5 e . 
+    e 5 c c 5 5 5 5 5 5 5 5 4 e . . 
+    e 5 e c 5 4 5 4 5 5 5 e e . . . 
+    e 5 e e 5 5 5 5 5 4 e . . . . . 
+    4 5 4 e 5 5 5 5 e e . . . . . . 
+    . 4 5 4 5 5 4 e . . . . . . . . 
+    . . 4 4 e e e . . . . . . . . . 
+    `, SpriteKind.Food)
+pizza.setPosition(randint(1, 250), randint(1, 250))
 burger.setBounceOnWall(true)
